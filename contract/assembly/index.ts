@@ -32,3 +32,20 @@ export function setGreeting(message: string): void {
   logging.log(`Saving greeting "${message}" for account "${accountId}"`)
   storage.set(accountId, message)
 }
+
+
+// Add our functions here
+/**
+ * ================ Setters ====================
+ * create-credit-account()
+ * payment-received()
+ * payment-missed()
+ * account-closure()
+ * dispute()
+ * dispute_update()
+ * ================ Getters ====================
+ * get_file()
+ * get_score()
+ */
+
+
