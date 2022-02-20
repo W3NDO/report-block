@@ -1,7 +1,12 @@
-node_modules/
+# modules
 .cache
+node_modules/
+
+# build output
 dist
 out
 build
-dev-account*
 main.wasm
+
+# developer credentials
+dev-account*
