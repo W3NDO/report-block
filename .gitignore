@@ -1,2 +1,7 @@
 node_modules/
-contract/node_modules/
+.cache
+dist
+out
+build
+dev-account*
+main.wasm
