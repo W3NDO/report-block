@@ -13,11 +13,9 @@
  */
 
 import { Context, logging, storage } from "near-sdk-as";
-import { AccountType, CreditAccount } from "./model";
+import NearService from "./service/near.service";
 
 const DEFAULT_MESSAGE = "Hello Report Block";
-// get a global variable to keep track of accountID
-var creditAccountIDCounter: number = 1;
 
 // Exported functions will be part of the public interface for your smart contract.
 // Feel free to extract behavior to non-exported functions!
@@ -35,43 +33,3 @@ export function setGreeting(message: string): void {
   logging.log(`Saving greeting "${message}" for account "${accountId}"`);
   storage.set(accountId, message);
 }
-
-/**
- * Key Variables for an open account
- * UID => alphanumeric
- * type => enumerable (student, auto, home, card, collections, other)
- * creditor => string
- */
-export function openCreditAccount(
-  uid: string,
-  accountType: AccountType,
-  creditor: string
-): void {
-  var tempAccount: CreditAccount = {
-    uid,
-    accountType,
-    creditor,
-  };
-  storage.set<CreditAccount>(creditAccountIDCounter.toString(), tempAccount); //store
-  creditAccountIDCounter += 1;
-}
-
-// export function getCreditAccount(
-//   creditAccountID: string
-// ): CreditAccount | null {
-//   return storage.get<CreditAccount>(creditAccountID);
-// }
-
-// Add our functions here
-/**
- * ================ Setters ====================
- * open-credit-account()
- * payment-received()
- * payment-missed()
- * account-closure()
- * dispute()
- * dispute_update()
- * ================ Getters ====================
- * get_file()
- * get_score()
- */
