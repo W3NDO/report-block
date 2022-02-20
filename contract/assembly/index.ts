@@ -35,17 +35,17 @@ export function setGreeting(message: string): void {
   storage.set(accountId, message)
 }
 
-enum AccountType {
+enum AccountType { //different accounts available. 
   Student,
   Auto,
   Home,
 };
 type MyAccount = AccountType
 
-type Account = {
-  uid : string;
-  accountType : MyAccount;
-  creditor : string;
+interface CreditAccount {
+  uid: string;
+  accountType: MyAccount;
+  creditor: string;
  };
 
 /**
@@ -55,17 +55,17 @@ type Account = {
  * creditor => string
  */
 export function openCreditAccount(_uid : string, _accountType : AccountType, _creditor : string ) : void{
-  const tempAccount : Account = {
-    uid : _uid,
-    accountType : _accountType,
-    creditor : _creditor,
+  var tempAccount : CreditAccount = {
+    uid: _uid,
+    accountType: _accountType,
+    creditor: _creditor,
   }
-  storage.set<Account>( creditAccountIDCounter.toString(), tempAccount); //store
+  storage.set<CreditAccount>( creditAccountIDCounter.toString(), tempAccount); //store
   creditAccountIDCounter +=1;
 }
 
-export function getCreditAccount(creditAccountID : string) : Account | null{
-  return storage.get<Account>(creditAccountID)
+export function getCreditAccount(creditAccountID : string) : CreditAccount | null{
+  return storage.get<CreditAccount>(creditAccountID)
 }
 
 // Add our functions here
