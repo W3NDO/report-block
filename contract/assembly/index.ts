@@ -13,7 +13,9 @@
  */
 
 import { Context, logging, storage } from "near-sdk-as";
+import { AccountType, CreditAccount } from "./model";
 import NearService from "./service/near.service";
+
 
 const DEFAULT_MESSAGE = "Hello Report Block";
 
@@ -32,4 +34,27 @@ export function setGreeting(message: string): void {
   // Use logging.log to record logs permanently to the blockchain!
   logging.log(`Saving greeting "${message}" for account "${accountId}"`);
   storage.set(accountId, message);
+}
+
+let nearService = new NearService
+
+export function openCreditAccount(
+    accountId: string,
+    uid: string,
+    accountType: AccountType,
+    creditor: string
+  ) : void { 
+  nearService.openCreditAccount(
+    accountId,
+    uid,
+    accountType,
+    creditor
+  ) 
+}
+// export const getCreditAccount = nearService.getCreditAccount; 
+
+export function getCreditAccount(
+  accountID: string
+): CreditAccount | null {
+  return storage.get<CreditAccount>(accountID);
 }
