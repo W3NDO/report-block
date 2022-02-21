@@ -9,4 +9,4 @@ build
 main.wasm
 
 # developer credentials
-dev-account*
+neardev
