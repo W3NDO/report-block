@@ -7,7 +7,7 @@ export class CreditAccount {
 
 @nearBindgen
 export class AccountType {
-  static Student: number = 0
-  static Auto: number = 1
-  static Home: number = 2
+  static Student: string = "0"
+  static Auto: string = "1"
+  static Home: string = "2"
 }
