@@ -1,12 +1,9 @@
-import 'regenerator-runtime/runtime'
-import React from 'react'
-import { login, logout } from './utils'
-
-import getConfig from './config'
-const { networkId } = getConfig(process.env.NODE_ENV || 'development')
+import "regenerator-runtime/runtime";
+import React from "react";
+import "./main.pcss";
 
 export default function App() {
-  return <>Hi</>
+  return <div className="h-screen text-white bg-slate-800">Hi</div>;
 }
 
 // Bureau Dashboard:
