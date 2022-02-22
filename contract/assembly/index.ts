@@ -13,7 +13,7 @@
  */
 
 import { Context, logging, storage } from "near-sdk-as";
-import { AccountType, CreditAccount } from "./model";
+import { AccountType, CreditAccount, Response, ResponseData } from "./model";
 import NearService from "./service/near.service";
 
 
@@ -38,6 +38,7 @@ export function setGreeting(message: string): void {
 
 let nearService = new NearService
 
+
 export function openCreditAccount(
     accountId: string,
     uid: string,
@@ -57,4 +58,16 @@ export function getCreditAccount(
   accountID: string
 ): CreditAccount | null {
   return storage.get<CreditAccount>(accountID);
+}
+
+export function paymentReceived(
+  accountID: string,
+  date: string
+): void{
+  nearService.paymentReceived(
+    accountID, 
+    date
+  )
+
+
 }

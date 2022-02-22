@@ -35,6 +35,17 @@ export default class NearService {
   ): CreditAccount | null {
     return storage.get<CreditAccount>(accountID);
   }
+
+  paymentReceived(
+    accountID: string,
+    date: string
+  ): void {
+    storage.set<string>(accountID+date, "Paid")
+  }
+
+
+
+
 }
 
 
@@ -50,4 +61,8 @@ export default class NearService {
  * ================ Getters ====================
  * get_file()
  * get_score()
+ */
+
+/**
+ * Response Object required. 
  */
