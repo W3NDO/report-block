@@ -37,7 +37,7 @@ export default class NearService {
   }
 
   /**
-   * Records whether a payment was received and returns a stringified object "{accountID-date: "Paid"}"
+   * 
    * @param accountID uniqueID
    * @param date - a string in epoch time.
    * @returns an object {accountID-date: "Paid"}
@@ -51,7 +51,7 @@ export default class NearService {
   }
 
   /**
-   * Records whether a payment was missed and returns a stringified object "{accountID-date: "Missed"}"
+   * 
    * @param accountID uniqueID
    * @param date - a string in epoch time.
    * @returns a stringified object {accountID-date: "Missed"}
@@ -63,6 +63,8 @@ export default class NearService {
     storage.set<string>(accountID+date, "Missed")
     return  `{${accountID+":"+date}: "Paid" }`
   }
+
+
 
 
 }
