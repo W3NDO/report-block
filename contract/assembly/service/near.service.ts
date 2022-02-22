@@ -36,6 +36,12 @@ export default class NearService {
     return storage.get<CreditAccount>(accountID);
   }
 
+  /**
+   * 
+   * @param accountID uniqueID
+   * @param date - a string in epoch time.
+   * @returns an object {accountID-date: "Paid"}
+   */
   paymentReceived(
     accountID: string,
     date: string  //typically in epoch-time
@@ -44,6 +50,12 @@ export default class NearService {
     return  `{${accountID+"-"+date}: "Paid" }`
   }
 
+  /**
+   * 
+   * @param accountID uniqueID
+   * @param date - a string in epoch time.
+   * @returns a stringified object {accountID-date: "Missed"}
+   */
   paymentMissed(
     accountID: string,
     date: string //typically in epoch time
