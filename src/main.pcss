@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply outline-none focus-visible:outline focus-visible:outline-pink-400 p-3 text-lg text-left transition border rounded hover:bg-opacity-25 border-neutral-600 hover:border-pink-500 hover:bg-neutral-700;
+  }
+
+  .link-primary {
+    @apply focus-visible:underline text-pink-500 cursor-pointer hover:text-pink-400 hover:underline;
+  }
+}
