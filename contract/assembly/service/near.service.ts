@@ -38,9 +38,18 @@ export default class NearService {
 
   paymentReceived(
     accountID: string,
-    date: string
-  ): void {
+    date: string  //typically in epoch-time
+  ): string {
     storage.set<string>(accountID+date, "Paid")
+    return  `{${accountID+"-"+date}: "Paid" }`
+  }
+
+  paymentMissed(
+    accountID: string,
+    date: string //typically in epoch time
+  ): string {
+    storage.set<string>(accountID+date, "Missed")
+    return  `{${accountID+":"+date}: "Paid" }`
   }
 
 

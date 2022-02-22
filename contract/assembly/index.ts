@@ -63,11 +63,19 @@ export function getCreditAccount(
 export function paymentReceived(
   accountID: string,
   date: string
-): void{
-  nearService.paymentReceived(
+): string{
+  return nearService.paymentReceived(
     accountID, 
     date
   )
+}
 
-
+export function paymentMissed(
+  accountID: string,
+  date: string
+): string{
+  return nearService.paymentMissed(
+    accountID, 
+    date
+  )
 }
