@@ -1,5 +1,4 @@
 import React from "react";
-import { AccountBalance, Apartment, Person } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 export default function Login() {
@@ -11,11 +10,7 @@ export default function Login() {
           Secure and transparent credit reporting,
           <br />
           powered by the{" "}
-          <a
-            href="https://near.org"
-            target="_blank"
-            className="link-primary"
-          >
+          <a href="https://near.org" target="_blank" className="link-primary">
             NEAR Protocol
           </a>
           .
@@ -23,17 +18,16 @@ export default function Login() {
 
         <div className="flex flex-col">
           {[
-            ["Bureau", Apartment, "bureau"],
-            ["Lender", AccountBalance, "lender"],
-            ["Consumer", Person, "consumer"],
-          ].map(([title, Icon, path]) => (
-            <Link
-              className="w-full mb-3 btn-primary"
-              to={path}
-            >
-              <button tabIndex={-1}>
-                <Icon className="mr-2" /> Log in as{" "}
-                <strong className="font-bold">{title}</strong>
+            ["Bureau", "business", "bureau"],
+            ["Lender", "account_balance", "lender"],
+            ["Consumer", "person", "consumer"],
+          ].map(([title, icon, path]) => (
+            <Link className="mb-3" tabIndex={-1} to={path}>
+              <button className="w-full btn-primary">
+                <span className="mr-2 material-icons">{icon}</span>
+                <span>
+                  Log in as <strong className="font-bold">{title}</strong>
+                </span>
               </button>
             </Link>
           ))}
