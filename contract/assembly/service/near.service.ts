@@ -35,6 +35,36 @@ export default class NearService {
   ): CreditAccount | null {
     return storage.get<CreditAccount>(accountID);
   }
+
+  /**
+   * Records whether a payment was received and returns a stringified object "{accountID-date: "Paid"}"
+   * @param accountID uniqueID
+   * @param date - a string in epoch time.
+   * @returns an object {accountID-date: "Paid"}
+   */
+  paymentReceived(
+    accountID: string,
+    date: string  //typically in epoch-time
+  ): string {
+    storage.set<string>(accountID+date, "Paid")
+    return  `{${accountID+"-"+date}: "Paid" }`
+  }
+
+  /**
+   * Records whether a payment was missed and returns a stringified object "{accountID-date: "Missed"}"
+   * @param accountID uniqueID
+   * @param date - a string in epoch time.
+   * @returns a stringified object {accountID-date: "Missed"}
+   */
+  paymentMissed(
+    accountID: string,
+    date: string //typically in epoch time
+  ): string {
+    storage.set<string>(accountID+date, "Missed")
+    return  `{${accountID+":"+date}: "Paid" }`
+  }
+
+
 }
 
 
@@ -50,4 +80,8 @@ export default class NearService {
  * ================ Getters ====================
  * get_file()
  * get_score()
+ */
+
+/**
+ * Response Object required. 
  */
