@@ -37,7 +37,7 @@ export default class NearService {
   }
 
   /**
-   * 
+   * Records a received payment towards a specific credit account. Date is recorded in epochtime as a string.
    * @param accountID uniqueID
    * @param date - a string in epoch time.
    * @returns an object {accountID-date: "Paid"}
@@ -46,12 +46,12 @@ export default class NearService {
     accountID: string,
     date: string  //typically in epoch-time
   ): string {
-    storage.set<string>(accountID+date, "Paid")
+    storage.set<string>(accountID+date, "Paid")    
     return  `{${accountID+"-"+date}: "Paid" }`
   }
 
   /**
-   * 
+   * Records a missed payment towards a specific credit account. Date is recorded in epochtime as a string.
    * @param accountID uniqueID
    * @param date - a string in epoch time.
    * @returns a stringified object {accountID-date: "Missed"}
@@ -64,7 +64,19 @@ export default class NearService {
     return  `{${accountID+":"+date}: "Paid" }`
   }
 
-
+  /**
+   * Records a closure of a credit account. Date is recorded in epochtime as a string.
+   * @param accountID 
+   * @param date 
+   * @returns 
+   */
+  closeAccount(
+    accountID: string,
+    date: string
+  ): string{
+    storage.set<string>(accountID+date, "Account closed")
+    return `Closed account ${accountID}`
+  }
 
 
 }

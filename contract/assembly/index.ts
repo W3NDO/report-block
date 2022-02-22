@@ -79,3 +79,13 @@ export function paymentMissed(
     date
   )
 }
+
+export function closeAccount(
+  accountID: string,
+  date: string
+): string{
+  return nearService.closeAccount(
+    accountID, 
+    date
+  )
+}
