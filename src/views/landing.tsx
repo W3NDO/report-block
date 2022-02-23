@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ApiContext } from "../services/api.service";
 
 export default function Landing() {
+  const api = React.useContext(ApiContext);
+
   return (
     <>
       <section className="py-24 mt-8 wrapper">
@@ -19,7 +22,11 @@ export default function Landing() {
             .
           </p>
 
-          <Link to="login" tabIndex={-1}><button className="mr-4 text-xl btn-primary btn-cta">Get Started</button></Link>
+          <Link to={api.isLoggedIn ? api.userType : "login"} tabIndex={-1}>
+            <button className="mr-4 text-xl btn-primary btn-cta">
+              {api.isLoggedIn ? "Go to Dashboard" : "Get Started"}
+            </button>
+          </Link>
           <button className="px-6 text-xl btn-primary">Learn More</button>
         </article>
       </section>
