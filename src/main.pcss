@@ -3,11 +3,19 @@
 @tailwind utilities;
 
 @layer components {
-  .btn-primary {
-    @apply flex items-center outline-none focus-visible:outline focus-visible:outline-pink-400 p-3 text-lg text-left transition border rounded hover:bg-opacity-25 border-neutral-600 hover:border-pink-500 hover:bg-neutral-700;
+  .wrapper {
+    @apply max-w-[1400px] p-8 mx-auto;
   }
 
   .link-primary {
     @apply focus-visible:underline text-pink-500 cursor-pointer hover:text-pink-400 hover:underline;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center outline-none focus-visible:outline focus-visible:outline-pink-400 p-3 text-lg text-left transition border rounded hover:bg-opacity-25 border-neutral-600 hover:border-pink-500 hover:bg-neutral-700;
+  }
+
+  .btn-cta {
+    @apply px-8 bg-gradient-to-tr from-pink-700 to-red-600 border border-transparent hover:border-white hover:shadow-md shadow hover:shadow-pink-900;
   }
 }
