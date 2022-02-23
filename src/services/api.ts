@@ -6,7 +6,7 @@ const nearConfig = getConfig(process.env.NODE_ENV || "development");
 
 export default class ApiService {
   walletConnection: WalletConnection;
-  accountId: string;
+  accountId: string | null;
   userType: UserType;
   contract: Contract;
 
@@ -38,7 +38,7 @@ export default class ApiService {
     );
   }
 
-  static UserTypeKey = 'blockreport_ut';
+  static UserTypeKey = "blockreport_ut";
 
   async login(type: UserType, callback?: () => any) {
     this.userType = type;
@@ -52,8 +52,11 @@ export default class ApiService {
     }
   }
 
-  logout(callback? : () => void) {
+  logout(callback?: () => void) {
     this.walletConnection.signOut();
+    this.accountId = null;
+    localStorage.remove(ApiService.UserTypeKey);
+
     if (callback) callback();
   }
 
@@ -67,9 +70,9 @@ export default class ApiService {
 }
 
 export enum UserType {
-  Bureau = 'bureau',
-  Lender = 'lender',
-  Consumer = 'consumer'
+  Bureau = "bureau",
+  Lender = "lender",
+  Consumer = "consumer",
 }
 
 export const ApiContext = React.createContext({} as ApiService);
