@@ -52,12 +52,10 @@ export default class ApiService {
     }
   }
 
-  logout(callback?: () => void) {
+  logout() {
     this.walletConnection.signOut();
     this.accountId = null;
     localStorage.remove(ApiService.UserTypeKey);
-
-    if (callback) callback();
   }
 
   get isLoggedIn(): boolean {

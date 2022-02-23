@@ -6,16 +6,21 @@ export default function Header() {
   const navigate = useNavigate();
   const api = React.useContext(ApiContext);
   const logout = () => {
-    api.logout(() => {
-      navigate("/login")
-    })
-  }
+    api.logout();
+    navigate("/login");
+  };
 
   return (
     <header className="relative z-50 flex items-center justify-between w-screen wrapper">
-      <Link to="/" className="underline link-primary"><h1 className="text-2xl font-extrabold text-white">BlockReport</h1></Link>
+      <Link to="/" className="underline link-primary">
+        <h1 className="text-2xl font-extrabold text-white">BlockReport</h1>
+      </Link>
 
-      {api.isLoggedIn && <button onClick={() => logout()} className="link-primary">Log Out</button>}
+      {api.isLoggedIn && (
+        <button onClick={() => logout()} className="link-primary">
+          Log Out
+        </button>
+      )}
     </header>
   );
 }
