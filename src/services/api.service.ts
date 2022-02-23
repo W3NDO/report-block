@@ -1,6 +1,7 @@
 import { connect, Contract, keyStores, WalletConnection } from "near-api-js";
 import React from "react";
 import getConfig from "../config";
+import ContractMethods from "../utils/contract-methods";
 
 const nearConfig = getConfig(process.env.NODE_ENV || "development");
 
@@ -25,15 +26,8 @@ export default class ApiService {
       this.walletConnection.account(),
       nearConfig.contractName,
       {
-        viewMethods: ["getFile", "getScore"],
-        changeMethods: [
-          "accountOpened",
-          "accountClosed",
-          "paymentReceived",
-          "paymentMissed",
-          "disputeCreated",
-          "disputeUpdated",
-        ],
+        viewMethods: Object.values(ContractMethods.View),
+        changeMethods: Object.values(ContractMethods.Change),
       }
     );
   }
