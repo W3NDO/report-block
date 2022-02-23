@@ -55,7 +55,7 @@ export default class ApiService {
   logout() {
     this.walletConnection.signOut();
     this.accountId = null;
-    localStorage.remove(ApiService.UserTypeKey);
+    localStorage.removeItem(ApiService.UserTypeKey);
   }
 
   get isLoggedIn(): boolean {
