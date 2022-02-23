@@ -1,81 +1,81 @@
-/*
- * This is an example of an AssemblyScript smart contract with two simple,
- * symmetric functions:
- *
- * 1. setGreeting: accepts a greeting, such as "howdy", and records it for the
- *    user (account_id) who sent the request
- * 2. getGreeting: accepts an account_id and returns the greeting saved for it,
- *    defaulting to "Hello"
- *
- * Learn more about writing NEAR smart contracts with AssemblyScript:
- * https://docs.near.org/docs/develop/contracts/as/intro
- *
- */
-
 import { Context, logging, storage } from "near-sdk-as";
 import { AccountType, CreditAccount, Response, ResponseData } from "./model";
-import NearService from "./service/near.service";
 
+// TODO: Calling account id can be retrieved from `Context.sender`
+// TODO: Use logging.log to record logs permanently to the blockchain!
 
-const DEFAULT_MESSAGE = "Hello Report Block";
-
-// Exported functions will be part of the public interface for your smart contract.
-// Feel free to extract behavior to non-exported functions!
-export function getGreeting(accountId: string): string | null {
-  // This uses raw `storage.get`, a low-level way to interact with on-chain
-  // storage for simple contracts.
-  // If you have something more complex, check out persistent collections:
-  // https://docs.near.org/docs/concepts/data-storage#assemblyscript-collection-types
-  return storage.get<string>(accountId, DEFAULT_MESSAGE);
-}
-
-export function setGreeting(message: string): void {
-  const accountId = Context.sender;
-  // Use logging.log to record logs permanently to the blockchain!
-  logging.log(`Saving greeting "${message}" for account "${accountId}"`);
-  storage.set(accountId, message);
-}
-
-let nearService = new NearService
-
-
+/**
+ * Creates a record indicating the opening of an account
+ * @param accountID the account identifier
+ * @param uid the user's unique identifier
+ * @param accountType the type of account
+ * @param creditor the creditor's name/ID
+ */
 export function openCreditAccount(
-    accountId: string,
-    uid: string,
-    accountType: AccountType,
-    creditor: string
-  ) : void { 
-  nearService.openCreditAccount(
-    accountId,
+  accountID: string,
+  uid: string,
+  accountType: AccountType,
+  creditor: string
+): void {
+  const tempAccount: CreditAccount = {
     uid,
     accountType,
-    creditor
-  ) 
+    creditor,
+  };
+  storage.set<CreditAccount>(accountID, tempAccount);
 }
-// export const getCreditAccount = nearService.getCreditAccount; 
 
-export function getCreditAccount(
-  accountID: string
-): CreditAccount | null {
+/**
+ * Finds and returns a requested credit account by ID
+ * @param accountID the record's unique id
+ * @returns requested credit account if found
+ */
+export function getCreditAccount(accountID: string): CreditAccount | null {
   return storage.get<CreditAccount>(accountID);
 }
 
+/**
+ * Records when a payment was received and returns a stringified object "{accountID-date: "Paid"}"
+ * @param accountID uniqueID
+ * @param date - a string in epoch time.
+ * @returns an object {accountID-date: "Paid"}
+ */
 export function paymentReceived(
   accountID: string,
-  date: string
-): string{
-  return nearService.paymentReceived(
-    accountID, 
-    date
-  )
+  date: string //typically in epoch-time
+): string {
+  storage.set<string>(accountID + date, "Paid");
+  return `{${accountID + "-" + date}: "Paid" }`;
 }
 
+/**
+ * Records when a payment was missed and returns a stringified object "{accountID-date: "Missed"}"
+ * @param accountID uniqueID
+ * @param date - a string in epoch time.
+ * @returns a stringified object {accountID-date: "Missed"}
+ */
 export function paymentMissed(
   accountID: string,
-  date: string
-): string{
-  return nearService.paymentMissed(
-    accountID, 
-    date
-  )
+  date: string //typically in epoch time
+): string {
+  storage.set<string>(accountID + date, "Missed");
+  return `{${accountID + ":" + date}: "Paid" }`;
 }
+
+// Add our functions here
+/**
+ * ================ Setters ====================
+ * open-credit-account()
+ * payment-received()
+ * payment-missed()
+ * account-closure()
+ * dispute()
+ * dispute_update()
+ * ================ Getters ====================
+ * get_file()
+ * get_score()
+ */
+
+/**
+ * Response Object required. 
+ */
