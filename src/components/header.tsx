@@ -1,8 +1,10 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ApiContext } from "../services/api";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ApiContext } from "../services/api.service";
 
 export default function Header() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
   const navigate = useNavigate();
   const api = React.useContext(ApiContext);
   const logout = () => {
@@ -16,7 +18,7 @@ export default function Header() {
         <h1 className="text-2xl font-extrabold text-white">BlockReport</h1>
       </Link>
 
-      {api.isLoggedIn && (
+      {api.isLoggedIn && !isHome && (
         <button onClick={() => logout()} className="link-primary">
           Log Out
         </button>
