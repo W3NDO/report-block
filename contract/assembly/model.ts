@@ -1,7 +1,5 @@
 @nearBindgen
 export class Account {
-  accountId: string;
-  uid: string;
   lenderId: string;
   type: string; //"card"|"loan"
   info: Map<string, string>;
