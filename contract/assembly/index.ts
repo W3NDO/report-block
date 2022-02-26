@@ -1,5 +1,5 @@
 import { Context, logging, storage } from "near-sdk-as";
-import { CreditAccount, Response } from "./model";
+import { Account, Response, Payment } from "./model";
 
 // TODO: Calling account id can be retrieved from `Context.sender`
 // TODO: Use logging.log to record logs permanently to the blockchain!
@@ -12,8 +12,8 @@ const ACCOUNT_PAYMENT_MISSED = "payment-missed";
 // Empty map for responses
 const EMPTY_MAP = new Map<string, string>();
 
-function getAccount<T>(accountId: string): T | null {
-  return storage.get<T>(accountId);
+function getAccount(accountId: string): Account | null {
+  return storage.get<Account>(accountId);
 }
 
 function checkIfAccountExists(accountId: string): bool {
@@ -30,8 +30,12 @@ function checkIfAccountExists(accountId: string): bool {
 export function accountOpened(
   accountId: string,
   uid: string,
-  accountType: string,
-  creditor: string
+  lenderId: string,
+  type: string,
+  info: Map<string, string>,
+  payments: Payment[],
+  dateOpened: string, //find a way to get dates from the contract data
+  remarks: string
 ): Response {
   const exists = checkIfAccountExists(accountId);
   if (exists) {
@@ -42,13 +46,18 @@ export function accountOpened(
     };
   }
 
-  const tempAccount: CreditAccount = {
+  const tempAccount: Account = {
+    accountId,
     uid,
-    accountType,
-    creditor,
+    lenderId,
+    type,
+    info,
+    payments,
+    dateOpened, //find a way to get dates from the contract data
+    remarks
   };
 
-  storage.set<CreditAccount>(accountId, tempAccount);
+  storage.set<Account>(accountId, tempAccount);
   const created = checkIfAccountExists(accountId);
   if (!created) {
     return {
@@ -100,7 +109,7 @@ export function accountClosed(accountId: string, date: string): Response {
  * @param accountId the record's unique id
  */
 export function getCreditAccount(accountId: string): Response {
-  const account = getAccount<CreditAccount>(accountId);
+  const account = getAccount(accountId);
   if (!account) {
     return {
       success: false,
@@ -112,8 +121,8 @@ export function getCreditAccount(accountId: string): Response {
   const data = new Map<string, string>();
   data.set("id", accountId);
   data.set("uid", account.uid);
-  data.set("accountType", account.accountType);
-  data.set("creditor", account.creditor);
+  data.set("accountType", account.type);
+  data.set("lender", account.lenderId);
   return { success: true, data, message: "Found account" };
 }
 
@@ -241,6 +250,10 @@ export function disputeUpdate(
     message: "Dispute recorded",
   };
 }
+
+
+
+
 
 // Add our functions here
 /**
