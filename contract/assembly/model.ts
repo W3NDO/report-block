@@ -8,6 +8,7 @@ export class Account {
   payments: Payment[];
   dateOpened: string;
   remarks: string;
+  isOpen: boolean;
 }
 
 @nearBindgen
@@ -31,7 +32,7 @@ export class Dispute{
   accountId: string;
   lenderId: string;
   remarks: string;
-  isOOpen: boolean;
+  isOpen: boolean;
 }
 
 @nearBindgen
