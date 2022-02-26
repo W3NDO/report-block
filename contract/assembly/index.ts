@@ -12,7 +12,7 @@ const ACCOUNT_PAYMENT_MISSED = "payment-missed";
 // Empty map for responses
 const EMPTY_MAP = new Map<string, string>();
 
-function getAccount<Account>(accountId: string): Account | null {
+function getAccount(accountId: string): Account | null {
   return storage.get<Account>(accountId);
 }
 
@@ -108,8 +108,8 @@ export function accountClosed(accountId: string, date: string): Response {
  * Finds and returns a requested credit account by ID
  * @param accountId the record's unique id
  */
-export function viewAccount(accountId: string): Response {
-  const account = getAccount<Account>(accountId);
+export function getCreditAccount(accountId: string): Response {
+  const account = getAccount(accountId);
   if (!account) {
     return {
       success: false,
@@ -250,6 +250,10 @@ export function disputeUpdate(
     message: "Dispute recorded",
   };
 }
+
+
+
+
 
 // Add our functions here
 /**
