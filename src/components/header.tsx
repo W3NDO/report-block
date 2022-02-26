@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ApiContext } from "../services/api";
+import { ApiContext } from "../services/api.service";
 
 export default function Header() {
   const navigate = useNavigate();
